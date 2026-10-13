@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinTrack — Фінансовий трекер</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+  <div class="page">
+    <div class="shell">
+
+      <!-- ===================== САЙДБАР ===================== -->
+      <aside class="sidebar" aria-label="Основна навігація">
+        <a href="#dashboard" class="logo">
+          <img src="images/logo.png" alt="FinTrack">
+        </a>
+
+        <nav aria-label="Розділи">
+          <ul>
+            <li><a href="#dashboard" aria-current="page">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18"><path d="M3 17l5-5 4 4 8-8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Звіти
+            </a></li>
+            <li><a href="#news">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18"><path d="M13 2L4 14h6l-1 8 9-12h-6z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/></svg>
+              Поради
+            </a></li>
+            <li><a href="#transactions">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="16" cy="16" r="3" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+              Рахунки
+            </a></li>
+            <li><a href="#categories">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" fill="none"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+              Бюджети
+            </a></li>
+          </ul>
+
+          <h2>Підтримка</h2>
+          <ul>
+            <li>
+              <button type="button" id="open-survey" aria-haspopup="dialog" aria-controls="survey-modal">
+                <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-3 11.2V16h6v-1.8A6 6 0 0012 3z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Почати
+              </button>
+            </li>
+            <li><a href="#feedback">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Зв'язок
+            </a></li>
+            <li><a href="pages/settings.html">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M19 12a7 7 0 00-.2-1.6l2-1.6-2-3.4-2.4 1a7 7 0 00-2.8-1.6L13 2h-4l-.6 2.8a7 7 0 00-2.8 1.6l-2.4-1-2 3.4 2 1.6A7 7 0 003 12c0 .5 0 1.1.2 1.6l-2 1.6 2 3.4 2.4-1a7 7 0 002.8 1.6L9 22h4l.6-2.8a7 7 0 002.8-1.6l2.4 1 2-3.4-2-1.6c.2-.5.2-1.1.2-1.6z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>
+              Налаштування
+            </a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- ===================== ОСНОВНИЙ КОНТЕНТ ===================== -->
+      <div class="main" id="dashboard">
+
+        <header class="main-header">
+          <h1>Звіти</h1>
+
+          <div class="main-header-actions">
+            <form role="search" class="header-search" action="#" method="get">
+              <label for="search-input" class="visually-hidden">Пошук транзакцій</label>
+              <div class="search-input-wrap">
+                <img src="images/search.svg" alt="" class="search-icon">
+                <input type="search" id="search-input" name="q" placeholder="Пошук транзакцій, категорій…">
+              </div>
+            </form>
+
+            <a href="#" class="download-link" download>
+              <img src="images/download.svg" alt="">
+              Завантажити
+            </a>
+
+            <button type="button" id="open-auth" class="profile-btn" aria-haspopup="dialog" aria-controls="auth-modal" aria-label="Профіль / вхід">
+              ОМ
+            </button>
+          </div>
+        </header>
+
+        <!-- Фільтри -->
+        <form class="filters" action="#" method="get">
+          <div>
+            <label for="filter-period">Період</label>
+            <select id="filter-period" name="period">
+              <option selected>Весь час</option>
+              <option>Цей місяць</option>
+              <option>Цей рік</option>
+            </select>
+          </div>
+          <div>
+            <label for="filter-account">Рахунок</label>
+            <select id="filter-account" name="account">
+              <option selected>Усі</option>
+              <option>Картка</option>
+              <option>Готівка</option>
+            </select>
+          </div>
+          <div>
+            <label for="filter-category">Категорія</label>
+            <select id="filter-category" name="category">
+              <option selected>Усі</option>
+              <option>Продукти</option>
+              <option>Транспорт</option>
+            </select>
+          </div>
+        </form>
+
+        <!-- Показники + графік -->
+        <section aria-labelledby="stats-heading" class="stats-block">
+          <h2 id="stats-heading" class="visually-hidden">Основні показники</h2>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <h3>Активні бюджети</h3>
+              <p class="stat-value">8<span class="stat-of">/10</span></p>
+            </article>
+
+            <article class="stat-card">
+              <h3>Транзакцій за місяць</h3>
+              <p class="stat-value">182</p>
+            </article>
+
+            <article class="stat-card">
+              <h3>Сер. сума витрати</h3>
+              <p class="stat-value">1 240 ₴</p>
+            </article>
+
+            <article class="stat-card stat-card--sparkline">
+              <h3>Баланс на початок <span class="info-dot" title="На початок обраного періоду">ⓘ</span></h3>
+              <p class="stat-value">64 000 ₴</p>
+              <img src="images/sparkline1.png" alt="" class="sparkline">
+            </article>
+
+            <article class="stat-card stat-card--sparkline">
+              <h3>Поточний баланс</h3>
+              <p class="stat-value">86 400 ₴</p>
+              <img src="images/sparkline2.png" alt="" class="sparkline">
+            </article>
+
+            <article class="stat-card stat-card--sparkline">
+              <h3>Приріст</h3>
+              <p class="stat-value stat-value--positive">+34%</p>
+              <img src="images/sparkline3.png" alt="" class="sparkline">
+            </article>
+
+            <article class="chart-card">
+              <div class="chart-card-head">
+                <h3>Активність</h3>
+                <label for="chart-period" class="visually-hidden">Період графіка</label>
+                <select id="chart-period" name="chart-period">
+                  <option selected>Місяць</option>
+                  <option>Квартал</option>
+                  <option>Рік</option>
+                </select>
+              </div>
+              <figure>
+                <img src="images/chart.png" alt="Графік доходів і витрат за останні 12 місяців">
+                <figcaption class="visually-hidden">Місячна активність рахунку</figcaption>
+              </figure>
+            </article>
+          </div>
+        </section>
+
+        <!-- Категорії: перевитрата / економія -->
+        <section id="categories" aria-labelledby="categories-heading" class="two-col">
+          <h2 id="categories-heading" class="visually-hidden">Категорії витрат</h2>
+
+          <article class="panel">
+            <h3>Категорії з перевитратою</h3>
+            <ul class="topic-list">
+              <li>
+                <img src="images/cat-products.jpg" alt="Продукти">
+                <span class="topic-name">Продукти</span>
+                <progress class="bar bar--warn" value="74" max="100">74%</progress>
+                <span class="topic-pct">74% <small>бюджету</small></span>
+              </li>
+              <li>
+                <img src="images/cat-fun.jpg" alt="Розваги">
+                <span class="topic-name">Розваги</span>
+                <progress class="bar bar--warn" value="52" max="100">52%</progress>
+                <span class="topic-pct">52% <small>бюджету</small></span>
+              </li>
+              <li>
+                <img src="images/cat-transport.jpg" alt="Транспорт">
+                <span class="topic-name">Транспорт</span>
+                <progress class="bar bar--warn" value="36" max="100">36%</progress>
+                <span class="topic-pct">36% <small>бюджету</small></span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="panel">
+            <h3>Категорії з найкращою економією</h3>
+            <ul class="topic-list">
+              <li>
+                <img src="images/cat-utilities.jpg" alt="Комунальні платежі">
+                <span class="topic-name">Комунальні платежі</span>
+                <progress class="bar bar--good" value="95" max="100">95%</progress>
+                <span class="topic-pct">95% <small>заощаджено</small></span>
+              </li>
+              <li>
+                <img src="images/cat-insurance.jpg" alt="Страхування">
+                <span class="topic-name">Страхування</span>
+                <progress class="bar bar--good" value="92" max="100">92%</progress>
+                <span class="topic-pct">92% <small>заощаджено</small></span>
+              </li>
+              <li>
+                <img src="images/cat-subs.jpg" alt="Підписки">
+                <span class="topic-name">Підписки</span>
+                <progress class="bar bar--good" value="89" max="100">89%</progress>
+                <span class="topic-pct">89% <small>заощаджено</small></span>
+              </li>
+            </ul>
+          </article>
+        </section>
+
+        <!-- Рейтинги -->
+        <section id="transactions" aria-labelledby="rank-heading" class="two-col">
+          <h2 id="rank-heading" class="visually-hidden">Рейтинги</h2>
+
+          <article class="panel">
+            <h3>Рейтинг економії</h3>
+            <ul class="rank-list">
+              <li>
+                <img src="images/avatar1.png" alt="" class="avatar">
+                <span class="rank-info">
+                  <span class="rank-name">Ольга Мельник</span>
+                  <span class="rank-sub">3 420 ₴ заощаджено — 98% цілі</span>
+                </span>
+                <span class="rank-badge">1 <img src="images/trend-up.svg" alt="зростання"></span>
+              </li>
+              <li>
+                <img src="images/avatar2.png" alt="" class="avatar">
+                <span class="rank-info">
+                  <span class="rank-name">Олег Петренко</span>
+                  <span class="rank-sub">2 980 ₴ заощаджено — 89% цілі</span>
+                </span>
+                <span class="rank-badge rank-badge--down">2 <img src="images/trend-down.svg" alt="спад"></span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="panel">
+            <h3>Рейтинг родин</h3>
+            <ul class="rank-list rank-list--plain">
+              <li>
+                <span class="rank-info">
+                  <span class="rank-name">Родина Коваленко</span>
+                  <span class="rank-sub">1 240 ₴ / особу — 97% цілі</span>
+                </span>
+                <span class="rank-badge">1 <img src="images/trend-up.svg" alt="зростання"></span>
+              </li>
+              <li>
+                <span class="rank-info">
+                  <span class="rank-name">Родина Шевченко</span>
+                  <span class="rank-sub">1 100 ₴ / особу — 95% цілі</span>
+                </span>
+                <span class="rank-badge rank-badge--down">2 <img src="images/trend-down.svg" alt="спад"></span>
+              </li>
+            </ul>
+          </article>
+        </section>
+
+        <!-- Новини / поради (вимога лабораторної) -->
+        <section id="news" aria-labelledby="news-heading" class="card-section">
+          <h2 id="news-heading">Фінансові поради</h2>
+          <ul class="card-list">
+            <li>
+              <article>
+                <img src="images/tip1.jpg" alt="">
+                <h3>Як почати вести бюджет</h3>
+                <p>Прості кроки для тих, хто тільки починає стежити за фінансами.</p>
+                <a href="pages/article-1.html">Читати далі</a>
+              </article>
+            </li>
+            <li>
+              <article>
+                <img src="images/tip2.jpg" alt="">
+                <h3>Правило 50/30/20</h3>
+                <p>Популярний метод розподілу доходу на потреби, бажання й заощадження.</p>
+                <a href="pages/article-2.html">Читати далі</a>
+              </article>
+            </li>
+            <li>
+              <article>
+                <img src="images/tip3.jpg" alt="">
+                <h3>Подушка безпеки</h3>
+                <p>Скільки грошей варто відкладати на непередбачені випадки.</p>
+                <a href="pages/article-3.html">Читати далі</a>
+              </article>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Зворотний зв'язок (вимога лабораторної) -->
+        <section id="feedback" aria-labelledby="feedback-heading" class="card-section">
+          <h2 id="feedback-heading">Зворотний зв'язок</h2>
+          <form action="#" method="post" class="simple-form">
+            <div>
+              <label for="fb-name">Ім'я</label>
+              <input type="text" id="fb-name" name="fb-name" placeholder="Ваше ім'я" required>
+            </div>
+            <div>
+              <label for="fb-email">Email</label>
+              <input type="email" id="fb-email" name="fb-email" placeholder="name@example.com" required>
+            </div>
+            <div>
+              <label for="fb-message">Повідомлення</label>
+              <textarea id="fb-message" name="fb-message" rows="4" placeholder="Ваше повідомлення" required></textarea>
+            </div>
+            <button type="submit">Надіслати</button>
+            <button type="reset">Очистити</button>
+          </form>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 FinTrack. Навчальний проєкт.</p>
+  </footer>
+
+  <!-- ===================== МОДАЛКА: ВХІД / РЕЄСТРАЦІЯ ===================== -->
+  <dialog id="auth-modal" aria-labelledby="auth-heading">
+    <button type="button" id="close-auth" class="dialog-close" aria-label="Закрити вікно">×</button>
+    <h2 id="auth-heading">Вхід / Реєстрація</h2>
+
+    <form id="login-form">
+      <h3>Вхід</h3>
+      <div>
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" name="email" placeholder="name@example.com" required>
+      </div>
+      <div>
+        <label for="login-password">Пароль</label>
+        <input type="password" id="login-password" name="password" minlength="8" required aria-describedby="login-pwd-hint">
+        <p id="login-pwd-hint">Мінімум 8 символів</p>
+      </div>
+      <button type="submit">Увійти</button>
+      <button type="reset">Очистити</button>
+    </form>
+
+    <form id="register-form">
+      <h3>Реєстрація</h3>
+      <div>
+        <label for="reg-email">Email</label>
+        <input type="email" id="reg-email" name="email" placeholder="name@example.com" required>
+      </div>
+      <div>
+        <label for="reg-password">Пароль</label>
+        <input type="password" id="reg-password" name="password" minlength="8" required aria-describedby="reg-pwd-hint">
+        <p id="reg-pwd-hint">Мінімум 8 символів</p>
+      </div>
+      <div>
+        <label for="reg-password2">Повторіть пароль</label>
+        <input type="password" id="reg-password2" name="password2" minlength="8" required>
+      </div>
+      <button type="submit">Зареєструватися</button>
+      <button type="reset">Очистити</button>
+    </form>
+  </dialog>
+
+  <!-- ===================== МОДАЛКА: ОПИТУВАЛЬНИК ===================== -->
+  <dialog id="survey-modal" aria-labelledby="survey-heading">
+    <button type="button" id="close-survey" class="dialog-close" aria-label="Закрити вікно">×</button>
+    <h2 id="survey-heading">Розкажіть про свої фінансові цілі</h2>
+
+    <form id="survey-form">
+      <div>
+        <label for="survey-login">Логін</label>
+        <input type="text" id="survey-login" name="login" placeholder="Ваш логін" required>
+      </div>
+
+      <div>
+        <label for="survey-email">Email</label>
+        <input type="email" id="survey-email" name="email" placeholder="name@example.com" required>
+      </div>
+
+      <div>
+        <label for="survey-comment">Розкажіть детальніше про свою мету</label>
+        <textarea id="survey-comment" name="comment" rows="4" placeholder="Наприклад: хочу накопичити на відпустку…"></textarea>
+      </div>
+
+      <div>
+        <label for="survey-goal">Основна мета</label>
+        <select id="survey-goal" name="goal">
+          <option value="savings" selected>Заощадження</option>
+          <option value="debt">Погашення боргів</option>
+          <option value="investing">Інвестування</option>
+          <option value="budgeting">Контроль витрат</option>
+        </select>
+      </div>
+
+      <fieldset>
+        <legend>Як часто плануєте перевіряти застосунок?</legend>
+        <div>
+          <input type="radio" id="freq-daily" name="frequency" value="daily" checked>
+          <label for="freq-daily">Щодня</label>
+        </div>
+        <div>
+          <input type="radio" id="freq-weekly" name="frequency" value="weekly">
+          <label for="freq-weekly">Щотижня</label>
+        </div>
+        <div>
+          <input type="radio" id="freq-monthly" name="frequency" value="monthly">
+          <label for="freq-monthly">Щомісяця</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Якими функціями цікавитесь?</legend>
+        <div>
+          <input type="checkbox" id="feat-budget" name="features" value="budget">
+          <label for="feat-budget">Бюджети</label>
+        </div>
+        <div>
+          <input type="checkbox" id="feat-goals" name="features" value="goals">
+          <label for="feat-goals">Цілі</label>
+        </div>
+        <div>
+          <input type="checkbox" id="feat-reports" name="features" value="reports">
+          <label for="feat-reports">Звіти</label>
+        </div>
+      </fieldset>
+
+      <button type="submit">Надіслати</button>
+      <button type="reset">Очистити</button>
+    </form>
+  </dialog>
+
+</body>
+</html>
